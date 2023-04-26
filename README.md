@@ -1,21 +1,17 @@
 # Recommendation-system
 
 ## Training Model.ipynb
-+ Project này dùng để xây dựng một model dùng để recommendation 10 sản phẩm nhiều khả năng sẽ được người dùng tương tác 
-    cho từng khách hàng trong số 22000 khách hàng với hơn 14000 loại sản phẩm.
-+ Trong project có để cập đến hai loại model là MF (Matrix Factorization) và NeuMF (Neural Matrix Factorization) để sử dụng cho recommendation system
-+ Sau khi model được train xong thì một số hàm sẽ được dùng để kiểm tra hiệu suất model như mean_precision_recall_at_k, average_ndcg, và hit_rate
++ This project is used to build a model for recommending 10 products that are likely to be interacted by each of 22,000 customers from over 14,000 types of products.
++ The project includes two types of models, MF (Matrix Factorization) and NeuMF (Neural Matrix Factorization), to be used for the recommendation system.
++ After the model is trained, some functions will be used to evaluate the model's performance such as mean_precision_recall_at_k, average_ndcg, and hit_rate.
 
 ## Negative Processing.ipynb
-+ Vì sample cho recommendation system này chỉ gồm lịch sử các sản phẩm đã được khách hàng mua vậy nên rất khó để biết mức độ tương tác của khách hàng với sản phẩm
-+ Do đó, project này sẽ dùng cách tạo mẫu âm (Negative Sampling) thường được dùng cho Implicit Feedback trong recommendation.
-+ Do đó, mẫu dùng để training sẽ bao gồm hai nhãn là 1 (những sản phẩm đã được khách hàng mua trong quá khứ) và 0 (những sản phẩm chưa bao giờ được khách hàng mua)
-+ Cách tạo mẫu âm được đề cập trong file này bao gồm: dựa theo điểm số tương tác của khách hàng với sản phẩm đó
-+ Cơ chế lấy mẫu thì trước đó một mẫu training được tạo bằng phương pháp lấy mẫu ngẫu nhiên để tạo mẫu âm (gọi là mẫu 1) và sử dụng mẫu này cho Training Model.ipynb
-+ Sau khi training mẫu này sẽ được dùng để predict score của 14000 sản phẩm cho từng khách hàng
-+ Các sản phẩm với điểm số cao nhất sẽ được dùng cho mẫu 2, mục đích của việc này để giúp mô hình có thể phân biệt được sản phẩm nào mà người dùng đã tương tác và
-  với những sản phẩm có khả năng cao mà người dùng sẽ tương tác.
-+ Lý do có hai đoạn code để tạo mẫu âm là do trong đoạn code một thì mô hình sẽ dự đoán toàn bộ score cho 14000 sản phẩm và chọn ra số lượng mẫu âm có score cao nhất
-  và không trùng với sản phẩm khách hàng đã mua. Việc này tốn rất nhiều thời gian để tạo mẫu (hơn 6 tiếng), do đó code tạo mẫu thứ hai chỉ lấy ngẫu nhiên một lượng sản
-  phẩm trong 14000 sản phẩm để cho vào mô hình và dự đoán score. Việc này giúp rút ngắng thời gian tạo mẫu xuống còn 2 tiếng.
-+ Sau đó mẫu sẽ được cho vào một file csv và đưa vào Training Model.ipynb để tiến hành training.
++ As the sample for this recommendation system only includes the history of products that customers have purchased, it is difficult to determine the level of interaction between customers and products.
++ Therefore, this project will use Negative Sampling, which is commonly used for Implicit Feedback in recommendations.
++ Thus, the training samples will include two labels: 1 (products that customers have purchased in the past) and 0 (products that customers have never purchased).
++ The method of negative sampling mentioned in this file is based on the interaction score of customers with that product.
++ The sampling mechanism involves creating one training sample using random sampling to create negative samples (called sample 1) and using this sample for Training Model.ipynb.
++ After training, this sample will be used to predict scores for 14,000 products for each customer.
++ The products with the highest scores will be used for sample 2, with the purpose of helping the model distinguish which products the user has interacted with and which products are likely to be interacted with.
++ There are two sections of code for creating negative samples because in the first section, the model will predict scores for all 14,000 products and select a number of negative samples with the highest scores that do not overlap with the products the customer has purchased. This process takes a lot of time to create samples (more than 6 hours), so the second sample creation code randomly selects a number of products from the 14,000 products to put into the model and predict scores. This helps to reduce the time to create samples to 2 hours.
++ After that, the samples will be put into a csv file and put into Training Model.ipynb to proceed with training.
